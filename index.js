@@ -1,44 +1,24 @@
-console.clear();
+import innerCreate from "./modules/innerCreate.js";
+import makeFlag from "./modules/makeFlag.js";
+//import setup from "./modules/setup.js";
 
-document.body.insertAdjacentHTML('afterbegin',`
-<div class="col-left">    
-<div class="settings">
-    <label for="boardSize">Размер поля:</label>
-    <input id="boardSize" type="range" value="10" min="4" max="20">
-    <!--    
-        <label for="tileSize">tile size</label>
-        <input id="tileSize" type="range" min="10" max="100" step="10">    
-    -->    
-    <fieldset>
-        <input type="radio" id="easy" name="difficulty" value="0.1" class="difficulty">
-        <label for="easy">Легко</label> 
-        <input type="radio" id="normal" name="difficulty" value="0.2" class="difficulty" checked>
-        <label for="normal">Нормально</label>
-        <input type="radio" id="hard" name="difficulty" value="0.4" class="difficulty">
-        <label for="hard">Сложно</label> 
-    </fieldset>
-</div>     
-</div>
-<div class="col-right">    
-<a href="#!" class="minesweeper-btn">New game</a>    
-</div>
-<div class="board-wrap">
-<div class="board"></div>
-</div>
-<div class="endscreen"></div>
+document.body.insertAdjacentHTML('afterbegin','<section class="batlefield"></section>');
 
+const batlefield = document.querySelector('.batlefield');
+batlefield.insertAdjacentHTML('afterbegin', innerCreate());
+//document.body.insertAdjacentHTML('afterbegin', innerCreate());
+batlefield.style.innerWidth = '100vw';
+batlefield.style.innerHeight = '100vh';
 
-
-
-
-
-
-
-                                            `)
 
 let size = 10; 
 let bombFrequency = 0.2; 
-let tileSize = 50;
+//let tileSize = 50;
+let tileSize;
+if(window.innerHeight < window.innerWidth) {
+tileSize = window.innerHeight/(size+10)
+} else {tileSize = window.innerWidth/(size+12)}
+
 
 const board = document.querySelectorAll('.board')[0];
 let tiles;
@@ -54,7 +34,8 @@ const difficultyBtns = document.querySelectorAll('.difficulty');
 
 let bombs = [];
 let numbers = [];
-let numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d',];
+//let numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d',];
+let numberColors = ['white', 'black', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d',];
 let endscreenContent = {win: '<span>Your win!!! Best minesweeper</span>', loose: 'Your loose! Try again'};
 
 let gameOver = false;
@@ -70,7 +51,7 @@ const clear = () => {
 		tile.remove();
 	});
 	
-	setup();
+	setup(size, tiles, boardSize);
 }
 
 const setup = () => {
@@ -114,7 +95,7 @@ const setup = () => {
 		
 		tile.oncontextmenu = function(e) {
 			e.preventDefault();
-			flag(tile);
+			makeFlag(tile, gameOver);
 		}
 		
 		tile.addEventListener('click', function(e) {
@@ -130,21 +111,6 @@ const setup = () => {
 		tile.setAttribute('data-num', dataNum + 1);
 	});
 }
-
-
-const flag = (tile) => {
-	if (gameOver) return;
-	if (!tile.classList.contains('tile--checked')) {
-		if (!tile.classList.contains('tile--flagged')) {
-			tile.innerHTML = 'рџљ©';
-			tile.classList.add('tile--flagged');
-			} else {
-			tile.innerHTML = '';
-			tile.classList.remove('tile--flagged');
-		}
-	}
-}
-
 
 const clickTile = (tile) => {
 	if (gameOver) return;
@@ -220,7 +186,6 @@ const checkTile = (tile, coordinate) => {
 
 /* РљРѕРЅРµС† РёРіСЂС‹ - РІР·СЂС‹РІ */
 const endGame = (tile) => {
-	console.log('рџ’Ј Booom! Game over.');
 	endscreen.innerHTML = endscreenContent.loose;
 	endscreen.classList.add('show');
 	gameOver = true;
@@ -229,7 +194,7 @@ const endGame = (tile) => {
 		if (bombs.includes(coordinate)) {
 			tile.classList.remove('tile--flagged');
 			tile.classList.add('tile--checked', 'tile--bomb');
-			tile.innerHTML = 'рџ’Ј';
+			//tile.innerHTML = '&#9762;';
 		}
 	});
 }

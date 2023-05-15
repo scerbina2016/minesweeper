@@ -2,7 +2,7 @@ const makeFlag = (tile, gameOver) => {
 	if (gameOver) return;
 	if (!tile.classList.contains('tile--checked')) {
 		if (!tile.classList.contains('tile--flagged')) {
-			tile.innerHTML = 'рџљ©';
+			tile.innerHTML = ' &check;';
 			tile.classList.add('tile--flagged');
 			} else {
 			tile.innerHTML = '';

@@ -5,7 +5,7 @@
 
 :root {
     box-sizing: border-box;
-    font-family: 'Pacifico', cursive;
+    font-family: 'Oleo';
     margin: 0px;
     padding: 0px;
 
@@ -52,12 +52,37 @@ body{
 	color: rgb(26, 95, 26);
 }
 .col-left {
-	display: inline-block;
-	width: 48%;
-}		
+	display: flex;
+    flex-direction: row;
+    justify-content:    space-between;
+	width: 100vmin;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+}	
+	
+.fieldSet{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:left;
+    width:30%;
+    border: none;
+    padding: 0;
+    margin-top:  0.5vmin;
+    justify-content: center;
+    color: yellow;
+}
+.difficulty{
+    cursor: pointer;
+}
+.diff{
+    margin: 0 5px 0 0;
+}
 .col-right {
 	display: inline-block;
-	width:48%;
+	width:30%;
 	text-align: right;
 }		
 .board {
@@ -82,14 +107,16 @@ body{
 	font-size: calc(var(--tileSize) * .8);
 	cursor: pointer;
 	user-select: none;
-	transition: background .2s ease;
+	/*transition: background .1s ease;*/
 	font-family: Tahoma, sans-serif;
 	box-shadow: inset 0 2px 0 0 #fcfcfc, inset 2px 0 0 0 #fcfcfc, inset 0 -2px 0 0 #c9c9c9, inset -2px 0 0 0 #c9c9c9;
 }
-.board .tile:hover:not(.tile--checked) {
+.board .tile:hover:not(.tile--flagged):not(.tile--checked) {
 	background: #efefef;
     
 }
+
+
 .board .tile--checked {
     background-image:  url('./images/icons8-grass-96.png');
     background-position: center;
@@ -104,7 +131,7 @@ body{
 .board .tile--checked:hover {
 	cursor: default;
 }
-.board .tile--bomb {
+.board .tile--bomb:not(.tile--flagged) {
 	font-size: calc(var(--tileSize) * .9);
     background-image: url('./images/icons8-land-mine-64.png');
     background-position: center;
@@ -113,22 +140,35 @@ body{
 }
 .board .tile--flagged {
 	font-size: calc(var(--tileSize) * .5);
+    background-image: url('./images/icons8-flag-60.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+/*.title--flagged:hover{
+
+    background-image: url('./images/icons8-flag-96.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}*/
 .minesweeper-btn {
     display: inline-block;
     padding: 0 40px;
     height: 50px;
 	margin-bottom: 20px;
 	text-align: center;
-	font-family: 'Roboto Condensed', sans-serif;
-    background-color: #337AB7;
+	/*font-family: 'Roboto Condensed', sans-serif;*/
+    background-color: yellow;
     border-radius: 2px;
-    font-size: 20px;
+    font-size: 2vmin;
     font-weight: bold;
-    color: #fff;
+    color: #337AB7;
     text-transform: uppercase;
     line-height: 50px;
-    transition: all 0.4s;
+    transition: all 0.1s;
     outline: none !important;
     border: none;    
 	text-decoration: none;
@@ -137,7 +177,9 @@ body{
     background-color: #333333;
     color: #fff;	
 }
-
+.settings{
+    width: 30%;
+}
 .settings fieldset {
 	border: none;
 }
@@ -150,11 +192,12 @@ body{
 	display: inline-block;
 	position: relative;
 	cursor:pointer;
-	font-size: 13px;
+    font-family: 'Oleo';
+	font-size: 3vh;
 	line-height:18px;
 	transition: .4s all;
-	color:#337AB7;
-	font-weight: bold!important;		
+	color: yellow;
+	font-weight: bold;		
 }
 .settings input[type=radio] + label  {
 	margin: 12px 14px 12px 22px;

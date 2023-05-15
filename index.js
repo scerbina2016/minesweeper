@@ -27,7 +27,7 @@ let boardSize;
 const restartBtn = document.querySelectorAll('.minesweeper-btn')[0];
 const endscreen = document.querySelectorAll('.endscreen')[0]
 
-// РќР°СЃС‚СЂРѕР№РєРё
+// 
 const boardSizeBtn = document.getElementById('boardSize');
 const tileSizeBtn = document.getElementById('tileSize');
 const difficultyBtns = document.querySelectorAll('.difficulty');
@@ -36,7 +36,7 @@ let bombs = [];
 let numbers = [];
 //let numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d',];
 let numberColors = ['white', 'black', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d',];
-let endscreenContent = {win: '<span>Your win!!! Best minesweeper</span>', loose: 'Your loose! Try again'};
+let endscreenContent = {win: '<span>Your win!!! </span>', loose: 'Your loose! Try again'};
 
 let gameOver = false;
 
@@ -140,7 +140,6 @@ const clickTile = (tile) => {
 
 const checkTile = (tile, coordinate) => {
 	
-	console.log('вњ”');
 	let coords = coordinate.split(',');
 	let x = parseInt(coords[0]);
 	let y = parseInt(coords[1]);
@@ -183,8 +182,7 @@ const checkTile = (tile, coordinate) => {
 	}, 10);
 }
 
-
-/* РљРѕРЅРµС† РёРіСЂС‹ - РІР·СЂС‹РІ */
+//
 const endGame = (tile) => {
 	endscreen.innerHTML = endscreenContent.loose;
 	endscreen.classList.add('show');
@@ -213,29 +211,23 @@ const checkVictory = () => {
 }
 
 
-/* РќР°С‡Р°Р»Рѕ */
+//
 setup();
 
-/* РќРѕРІР°СЏ РёРіСЂР° */
+//
 restartBtn.addEventListener('click', function(e) {
 	e.preventDefault();
 	clear();
 });
 
-// РќР°СЃС‚СЂРѕР№РєРё
+// 
 boardSizeBtn.addEventListener('change', function(e) {
 	console.log(this.value);
 	size = this.value;
-	tileSize = 70 - (size * 2); // РЈРјРµРЅСЊС€Р°РµРј СЂР°Р·РјРµСЂ РєР»РµС‚РєРё, РµСЃР»Рё РґРѕСЃРєР° Р±РѕР»СЊС€Рµ
+	tileSize = 70 - (size * 2); //
 	clear();
 });
-/*
-	tileSizeBtn.addEventListener('change', function(e) {
-	console.log(this.value);
-	tileSize = this.value;
-	clear();
-	});
-*/
+
 difficultyBtns.forEach(btn => {
 	btn.addEventListener('click', function() {
 		console.log(this.value);
